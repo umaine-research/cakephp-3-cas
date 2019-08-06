@@ -36,6 +36,7 @@ class CasAuthenticate extends BaseAuthenticate
 
     protected $_defaultConfig = [
         'casVersion' => 'CAS_VERSION_2_0',
+        'loginEvent' => '',     // the name of the event to dispatch after authenticating (for porting to other workflows)
         'hostname' => null,
         'port' => 443,
         'uri' => ''
@@ -91,6 +92,9 @@ class CasAuthenticate extends BaseAuthenticate
      */
     public function authenticate(ServerRequest $request, Response $response)
     {
+        //Get the merged config settings
+        $settings = $this->getConfig();
+        
         phpCAS::handleLogoutRequests(false);
         phpCAS::forceAuthentication();
         //If we get here, then phpCAS::forceAuthentication returned
@@ -103,7 +107,12 @@ class CasAuthenticate extends BaseAuthenticate
         if (!empty($event->result)) {
             $user = $event->result;
         }
-
+        
+        // Fire off callback for login
+        if($settings['loginEvent']) {
+            $event2 = $this->dispatchEvent($settings['loginEvent'], ['user' => $user]);
+        }
+        
         return $user;
     }
 
