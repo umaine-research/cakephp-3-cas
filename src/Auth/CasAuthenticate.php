@@ -35,6 +35,7 @@ class CasAuthenticate extends BaseAuthenticate
     use EventDispatcherTrait;
 
     protected $_defaultConfig = [
+        'casVersion' => CAS_VERSION_2_0,
         'hostname' => null,
         'port' => 443,
         'uri' => ''
@@ -62,7 +63,7 @@ class CasAuthenticate extends BaseAuthenticate
         //the fact that phpCAS uses a static global initialization can
         //cause problems
         if (!phpCAS::isInitialized()) {
-            phpCAS::client(CAS_VERSION_2_0, $settings['hostname'], $settings['port'], $settings['uri']);
+            phpCAS::client($settings['casVersion'], $settings['hostname'], $settings['port'], $settings['uri']);
         }
 
         if (!empty($settings['curlopts'])) {
