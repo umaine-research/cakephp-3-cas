@@ -103,7 +103,7 @@ class CasAuthenticate extends BaseAuthenticate
         $user = array_merge(['username' => phpCAS::getUser()], phpCAS::getAttributes());
 
         //Listen for this event if you need to add/modify CAS user attributes
-        $event = $this->dispatchEvent('CasAuth.authenticate', $user);
+        $event = $this->dispatchEvent('CasAuth.authenticate', [$user]);
         if (!empty($event->result)) {
             $user = $event->result;
         }
