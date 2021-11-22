@@ -4,7 +4,7 @@ Very basic CAS Authentication for CakePHP 3.
 
 ## What's new/different in this version?
 
-### New features via configuration parameters
+New features via configuration parameters:
 
 * **casVersion** - ability to specify CAS version (defaults to CAS_VERSION_2_0 for backwards compatibility).
 * **loginEvent** - specify event to call after CasAuth.authenticate if needed
