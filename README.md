@@ -2,15 +2,41 @@
 
 Very basic CAS Authentication for CakePHP 3.
 
+## What's new/different in this version?
+
+### New features via configuration parameters
+
+* **casVersion** - ability to specify CAS version (defaults to CAS_VERSION_2_0 for backwards compatibility).
+* **loginEvent** - specify event to call after CasAuth.authenticate if needed
+
+Example config file using new parameters:
+
+```php
+$this->Auth->config('authenticate', [
+    'CasAuth.Cas' => [
+        'casVersion' => 'CAS_VERSION_3_0',
+        'loginEvent' => \CakeDC\Users\Controller\Component\UsersAuthComponent::EVENT_AFTER_LOGIN,
+    ]
+]);
+```
+***
+
+
 ## Installing via composer
 
 Install into your project using [composer](http://getcomposer.org).
 For existing applications you can add the
-following to your composer.json file:
+following to your composer.json file (requires:
 
     "require": {
-        "snelg/cakephp-3-cas": "~1.0"
-    }
+        "snelg/cakephp-3-cas": "dev-develop-um"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/umaine-research/cakephp-3-cas"
+        }
+    ]
 
 And run `php composer.phar update`
 
